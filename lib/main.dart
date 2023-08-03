@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:audioplayers/audioplayers.dart';
 
+//
 void main() {
   runApp(Application());
 }
@@ -39,32 +41,41 @@ Widget _getFormatedBody() {
   return Center(
     child: Column(
       children: [
-        _getRow(),
-        _getRow(),
-        _getRow(),
+        _getRow('h1', 'h2'),
+        _getRow('c1', 'c2'),
+        _getRow('k1', 'k2'),
       ],
     ),
   );
 }
 
-Widget _getRow() {
+Widget _getRow(String file_name1, String file_name2) {
   return Expanded(
     child: Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         Expanded(
           child: TextButton(
-            onPressed: () {},
+            onPressed: () async {
+              playSound(file_name1);
+            },
             child: Text(""),
           ),
         ),
         Expanded(
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              playSound(file_name2);
+            },
             child: Text(""),
           ),
         ),
       ],
     ),
   );
+}
+
+playSound(String file_name) async {
+  var player = AudioPlayer();
+  await player.play(AssetSource("${file_name}.wav"));
 }
